@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: project
-          image: vesajo/project@sha256:25ae9b6adeab750bd3f0604cdb1fc9192e8fc95ce6810d6e4c73681f12021c12
+          image: vesajo/project@sha256:de406fb305f374fb3e68b669b0121f210813beb4804955239791eb251524b8d9
