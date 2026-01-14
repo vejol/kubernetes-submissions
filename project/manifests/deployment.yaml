@@ -15,3 +15,6 @@ spec:
       containers:
         - name: project
           image: vesajo/project@sha256:de406fb305f374fb3e68b669b0121f210813beb4804955239791eb251524b8d9
+          env:
+            - name: PORT
+              value: "3000"
