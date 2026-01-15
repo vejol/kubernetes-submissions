@@ -1,14 +1,14 @@
 const path = require("path")
 const { writeFile, mkdirSync } = require("fs")
 
-const directory = path.join("/", "app", "files")
+const directory = path.join("/", "app", "hash")
 const filePath = path.join(directory, "hash.txt")
 
-mkdirSync(directory, { recursive: true }, err => {
-  if (err) {
-    console.error("Error creating directory", err)
-  }
-})
+try {
+  mkdirSync(directory, { recursive: true })
+} catch (err) {
+  console.error("Error creating directory", err)
+}
 
 const generateHashLine = () => {
   const currentDate = new Date().toISOString()
