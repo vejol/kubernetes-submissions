@@ -1,3 +1,3 @@
 # Project (Todo App)
 
-Deploy app with `kubectl apply -f manifests/deployment.yaml `
+Deploy app with `kubectl apply -f manifests/`
