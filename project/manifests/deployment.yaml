@@ -12,9 +12,16 @@ spec:
       labels:
         app: project
     spec:
+      volumes:
+        - name: image-vol
+          persistentVolumeClaim:
+            claimName: project-claim
       containers:
         - name: project
-          image: vesajo/project@sha256:de406fb305f374fb3e68b669b0121f210813beb4804955239791eb251524b8d9
+          image: vesajo/project@sha256:1f606da0ce375b5402af5040d66a011c6795bc4faa80f3977a8d2c6f152b6a3c
           env:
             - name: PORT
               value: "3000"
+          volumeMounts:
+            - name: image-vol
+              mountPath: /app/public/images
