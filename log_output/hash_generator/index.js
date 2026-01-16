@@ -1,25 +1,27 @@
+require("dotenv").config()
 const path = require("path")
 const { writeFile, mkdirSync } = require("fs")
 
-const directory = path.join("/", "app", "hash")
-const filePath = path.join(directory, "hash.txt")
+const HASH_FILE_PATH = process.env.HASH_FILE_PATH
 
 try {
-  mkdirSync(directory, { recursive: true })
+  mkdirSync(path.dirname(HASH_FILE_PATH), { recursive: true })
 } catch (err) {
   console.error("Error creating directory", err)
 }
 
 const generateHashLine = () => {
   const currentDate = new Date().toISOString()
-  const hash = crypto.randomUUID()
-  return `${currentDate}: ${hash}`
+  const randomHash = crypto.randomUUID()
+  return `${currentDate}: ${randomHash}`
 }
 
-setInterval(() => {
-  writeFile(filePath, generateHashLine(), err => {
+const updateHashLine = () => {
+  writeFile(HASH_FILE_PATH, generateHashLine(), err => {
     if (err) {
       console.error("Error writing to file", err)
     }
   })
-}, 5000)
+}
+
+setInterval(updateHashLine, 5000)

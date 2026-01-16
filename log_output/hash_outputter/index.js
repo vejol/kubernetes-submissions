@@ -1,32 +1,34 @@
+require("dotenv").config()
+const axios = require("axios")
 const express = require("express")
 const { readFileSync } = require("fs")
-const path = require("path")
 
-const hashFilePath = path.join("/app", "hash", "hash.txt")
-const countFilePath = path.join("/app", "files", "count.txt")
+const PING_PONG_URL = process.env.PING_PONG_URL
+const HASH_FILE_PATH = process.env.HASH_FILE_PATH
+const PORT = process.env.PORT || 3001
 
 const readHash = () => {
   try {
-    return readFileSync(hashFilePath, "utf8")
+    return readFileSync(HASH_FILE_PATH, "utf8")
   } catch (err) {
     console.error("Error reading hash file:", err)
   }
 }
 
-const readCount = () => {
+const getPingCount = async () => {
   try {
-    return readFileSync(countFilePath, "utf8")
+    const response = await axios.get(`${PING_PONG_URL}/pings`)
+    return response.data.pings
   } catch (err) {
-    console.error("Error reading count file:", err)
+    console.error("Error while fetching count:", err)
   }
 }
 
 const app = express()
-const PORT = process.env.PORT || 3000
 
-app.get("/", (request, response) => {
+app.get("/", async (request, response) => {
   const hash = readHash() || "no hash available"
-  const count = readCount() || "no count found"
+  const count = (await getPingCount()) ?? "no ping count found"
   response.type("text/plain").send(`${hash}\nPing / Pongs: ${count}`)
 })
 
