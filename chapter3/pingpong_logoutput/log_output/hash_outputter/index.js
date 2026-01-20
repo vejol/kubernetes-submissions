@@ -39,7 +39,7 @@ const app = express()
 app.get("/", async (request, response) => {
   const hash = readHash() || "no hash available"
   const count = (await getPingCount()) ?? "no ping count found"
-  const infoFileContent = readInfoFile() || "no file content available"
+  const infoFileContent = readInfoFile() || "no info file content available"
 
   const logOutputMessage = `
 file content: ${infoFileContent}

@@ -13,8 +13,6 @@ startImageLoader()
 
 const app = express()
 
-console.log("api proxy target", API_PROXY_TARGET)
-
 if (isDev) {
   const proxyMiddleware = createProxyMiddleware({
     pathFilter: "/todos",
