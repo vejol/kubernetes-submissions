@@ -23,3 +23,4 @@ Submissions for DevOps with Kubernetes course in January 2026
 ### Chapter 3
 
 - [2.1](https://github.com/vejol/kubernetes-submissions/tree/2.1/chapter3/ping_pong)
+- [2.2](https://github.com/vejol/kubernetes-submissions/tree/2.2/chapter3/project)
