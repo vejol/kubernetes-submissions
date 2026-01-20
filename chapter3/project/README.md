@@ -1,5 +1,7 @@
 # Project (Todo App)
 
-Deploy app with `kubectl apply -f todo-app/manifests/ && kubectl apply -f todo-backend/manifests`
+This app will be deployed to namespace `project`. You can create the namespace with `kubectl create namespace project`.
 
-In k3d: Make sure you create persistent volume when launching app first time by running `kubectl apply -f .` in [persistent_volumes](/chapter3/persistent_volumes/).
+Deploy app in k3d with `kubectl apply -f todo-app/manifests/ -f todo-backend/manifests -f ../persistent_volumes`
+
+If you have deployed also pingpong / logoutput app, its ingress will conflict with the ingress of the project. In this case, delete log-output igress with `kubectl delete ingress log-output-ingress`.
