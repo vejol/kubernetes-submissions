@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-backend-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-backend
+  template:
+    metadata:
+      labels:
+        app: todo-backend
+    spec:
+      containers:
+        - name: project
+          image: vesajo/todo-backend@sha256:8eb42ea54ea08cd63b59ac84ec7c8702f9601ab4347f2774e14e0d13eec707a7
+          env:
+            - name: PORT
+              value: "3000"

@@ -1,34 +1,34 @@
-const axios = require("axios")
+require("dotenv").config()
 const express = require("express")
-const fs = require("fs")
+const { createProxyMiddleware } = require("http-proxy-middleware")
 const path = require("path")
 
-const directory = path.join(__dirname, "public", "images")
-const filePath = path.join(directory, "image.jpg")
-const imageUrl = "https://picsum.photos/1200"
+const startImageLoader = require("./imageLoader")
 
-const getNewImage = async () => {
-  const response = await axios.get(imageUrl, { responseType: "stream" })
-  await response.data.pipe(fs.createWriteStream(filePath))
-}
+const API_PROXY_TARGET = process.env.API_PROXY_TARGET
+const PORT = process.env.PORT
+const isDev = process.env.NODE_ENV === "development"
 
-fs.mkdirSync(directory, { recursive: true })
-
-if (!fs.existsSync(filePath)) {
-  getNewImage()
-}
-
-setInterval(async () => {
-  getNewImage()
-}, 600000) // 600000ms=10m
+startImageLoader()
 
 const app = express()
-const PORT = process.env.PORT || 3000
+
+console.log("api proxy target", API_PROXY_TARGET)
+
+if (isDev) {
+  const proxyMiddleware = createProxyMiddleware({
+    pathFilter: "/todos",
+    target: API_PROXY_TARGET,
+    changeOrigin: true,
+  })
+
+  app.use(proxyMiddleware)
+}
 
 app.use("/public", express.static(path.join(__dirname, "public")))
 
 app.get("/", (request, response) => {
-  response.sendFile(path.join(__dirname, "index.html"))
+  response.sendFile(path.join(__dirname, "/public/index.html"))
 })
 
 app.listen(PORT, () => {

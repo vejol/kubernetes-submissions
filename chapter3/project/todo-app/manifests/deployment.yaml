@@ -1,27 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: project-dep
+  name: todo-app-dep
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: project
+      app: todo-app
   template:
     metadata:
       labels:
-        app: project
+        app: todo-app
     spec:
       volumes:
         - name: image-vol
           persistentVolumeClaim:
             claimName: project-claim
       containers:
-        - name: project
-          image: vesajo/project@sha256:8b7c6c5bcd2e120c46bcc1c5d7cd39dddbe9ef885e248530e792c1d09a3b6d8c
+        - name: todo-app
+          image: vesajo/todo-app@sha256:4785a8981e32263675c47603240065df635f0bd848a2252a734c625b7ad657c9
           env:
             - name: PORT
               value: "3000"
+            - name: IMAGE_URL
+              value: "https://picsum.photos/1200"
+            - name: IMAGE_FILE_PATH
+              value: /app/public/images/image.jpg
           volumeMounts:
             - name: image-vol
               mountPath: /app/public/images
