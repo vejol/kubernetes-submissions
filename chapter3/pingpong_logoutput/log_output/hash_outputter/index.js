@@ -5,6 +5,8 @@ const { readFileSync } = require("fs")
 
 const PING_PONG_URL = process.env.PING_PONG_URL
 const HASH_FILE_PATH = process.env.HASH_FILE_PATH
+const INFO_FILE_PATH = process.env.INFO_FILE_PATH
+const MESSAGE = process.env.MESSAGE
 const PORT = process.env.PORT || 3001
 
 const readHash = () => {
@@ -24,12 +26,28 @@ const getPingCount = async () => {
   }
 }
 
+const readInfoFile = () => {
+  try {
+    return readFileSync(INFO_FILE_PATH, "utf8")
+  } catch (err) {
+    console.error("Error reading hash file:", err)
+  }
+}
+
 const app = express()
 
 app.get("/", async (request, response) => {
   const hash = readHash() || "no hash available"
   const count = (await getPingCount()) ?? "no ping count found"
-  response.type("text/plain").send(`${hash}\nPing / Pongs: ${count}`)
+  const infoFileContent = readInfoFile() || "no file content available"
+
+  const logOutputMessage = `
+file content: ${infoFileContent}
+env variable: MESSAGE=${MESSAGE}
+${hash}
+Ping / Pongs: ${count}
+  `
+  response.type("text/plain").send(logOutputMessage)
 })
 
 app.listen(PORT, () => {
