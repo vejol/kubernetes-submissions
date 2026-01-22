@@ -15,7 +15,14 @@ spec:
     spec:
       containers:
         - name: project
-          image: vesajo/todo-backend@sha256:8eb42ea54ea08cd63b59ac84ec7c8702f9601ab4347f2774e14e0d13eec707a7
+          image: vesajo/todo-backend@sha256:88ffdb986dcc1f3f67378c8a80697f9230bdd3453626678e8c6f3044665c67bb
           env:
             - name: PORT
               value: "3000"
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: POSTGRES_HOST
+              value: todo-postgres-svc
+          envFrom:
+            - secretRef:
+                name: todo-postgres-secret
