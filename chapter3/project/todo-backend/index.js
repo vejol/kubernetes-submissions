@@ -1,27 +1,25 @@
 require("dotenv").config()
 const express = require("express")
 
+const { addTodo, getTodos, initializeDb } = require("./db")
+
 const PORT = process.env.PORT
 
-const todos = [
-  { content: "Learn JavaScript" },
-  { content: "Learn React" },
-  { content: "Build a project" },
-]
+initializeDb()
 
 const app = express()
 
 app.use(express.json())
 
-app.get("/todos", (request, response) => {
+app.get("/todos", async (request, response) => {
+  const todos = await getTodos()
   response.json(todos)
 })
 
-app.post("/todos", (request, response) => {
-  const todo = request.body
-
-  todos.push(todo)
-  response.status(201).json(todo)
+app.post("/todos", async (request, response) => {
+  const content = request.body.content
+  const addedTodo = await addTodo(content)
+  response.status(201).json(addedTodo)
 })
 
 app.listen(PORT, () => {
