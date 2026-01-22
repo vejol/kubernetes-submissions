@@ -1,16 +1,21 @@
+require("dotenv").config()
 const express = require("express")
 
+const { incrementCounterValue, getCounterValue, initializeDb } = require("./db")
+
 const PORT = process.env.PORT || 3000
-let counterValue = 0
+
+initializeDb()
 
 const app = express()
 
-app.get("/pingpong", (request, response) => {
+app.get("/pingpong", async (request, response) => {
+  const counterValue = await incrementCounterValue()
   response.send(`pong ${counterValue}`)
-  counterValue += 1
 })
 
-app.get("/pings", (request, response) => {
+app.get("/pings", async (request, response) => {
+  const counterValue = await getCounterValue()
   response.json({ pings: counterValue })
 })
 

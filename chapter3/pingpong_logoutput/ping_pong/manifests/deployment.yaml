@@ -15,4 +15,12 @@ spec:
     spec:
       containers:
         - name: ping-pong
-          image: vesajo/ping-pong@sha256:a2bb5653c78fc921f7d2b20a95970fa0e7b2c7c3c603628661ca105f3a018e2f
+          image: vesajo/ping-pong@sha256:e34ba33c198780ad04dee82361b80ed350dbcdb54606bcbb855806b168a2b8ee
+          env:
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: POSTGRES_HOST
+              value: pingpong-postgres-svc
+          envFrom:
+            - secretRef:
+                name: pingpong-postgres-secret
