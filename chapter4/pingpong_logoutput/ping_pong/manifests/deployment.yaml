@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: ping-pong
-          image: vesajo/ping-pong@sha256:e34ba33c198780ad04dee82361b80ed350dbcdb54606bcbb855806b168a2b8ee
+          image: vesajo/ping-pong@sha256:a003c3740bc24098ec56eb25b1969f2f16b1d752f5bf0a6dbc39654b6f50895b
           env:
             - name: POSTGRES_PORT
               value: "5432"
