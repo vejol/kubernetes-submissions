@@ -32,3 +32,7 @@ Submissions for DevOps with Kubernetes course in January 2026
 - [2.8](https://github.com/vejol/kubernetes-submissions/tree/2.8/chapter3/project)
 - [2.9](https://github.com/vejol/kubernetes-submissions/tree/2.9/chapter3/project)
 - [2.10](https://github.com/vejol/kubernetes-submissions/tree/2.10/chapter3/project)
+
+### Chapter 4
+
+- [3.1](https://github.com/vejol/kubernetes-submissions/tree/3.1/chapter4/pingpong_logoutput)
