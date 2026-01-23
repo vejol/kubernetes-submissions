@@ -17,7 +17,20 @@ app.get("/todos", async (request, response) => {
 })
 
 app.post("/todos", async (request, response) => {
+  const maxLength = 140
   const content = request.body.content
+
+  if (content.length > maxLength) {
+    console.warn(`Rejected todo (too long): ${content}`)
+    return response.status(413).json({
+      error: `Content too long, the max length is ${maxLength} chars. Received content: ${content}`,
+      maxLength,
+      actualLength: content.length,
+    })
+  }
+
+  console.log(`Received todo: ${content}`)
+
   const addedTodo = await addTodo(content)
   response.status(201).json(addedTodo)
 })
