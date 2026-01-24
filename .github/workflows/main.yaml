@@ -46,7 +46,7 @@ jobs:
         run: echo "BACKEND_IMAGE_NAME=$REGISTRY/$PROJECT_ID/$REPOSITORY/$BACKEND_IMAGE:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
 
       - name: Build
-        run: docker build --tag $BACKEND_IMAGE_NAME .
+        run: docker build --tag $BACKEND_IMAGE_NAME ./chapter4/project/todo-backend/Dockerfile
 
       - name: Publish
         run: docker push $BACKEND_IMAGE_NAME
@@ -55,7 +55,7 @@ jobs:
         run: echo "FRONTEND_IMAGE_NAME=$REGISTRY/$PROJECT_ID/$REPOSITORY/$FRONTEND_IMAGE:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
 
       - name: Build
-        run: docker build --tag $FRONTEND_IMAGE_NAME .
+        run: docker build --tag $FRONTEND_IMAGE_NAME ./chapter4/project/todo-app/Dockerfile
 
       - name: Publish
         run: docker push $FRONTEND_IMAGE_NAME
