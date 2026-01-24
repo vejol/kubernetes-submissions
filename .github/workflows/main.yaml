@@ -45,25 +45,26 @@ jobs:
       - name: "Form the backend image name"
         run: echo "BACKEND_IMAGE_NAME=$REGISTRY/$PROJECT_ID/$REPOSITORY/$BACKEND_IMAGE:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
 
-      - name: Build
-        run: docker build --tag $BACKEND_IMAGE_NAME ./chapter4/project/todo-backend/Dockerfile
+      - name: Build todo-backend
+        run: docker build --tag "$BACKEND_IMAGE_NAME" ./chapter4/project/todo-backend
 
-      - name: Publish
+      - name: Publish todo-backend
         run: docker push $BACKEND_IMAGE_NAME
 
       - name: "Form the frontend image name"
         run: echo "FRONTEND_IMAGE_NAME=$REGISTRY/$PROJECT_ID/$REPOSITORY/$FRONTEND_IMAGE:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
 
-      - name: Build
-        run: docker build --tag $FRONTEND_IMAGE_NAME ./chapter4/project/todo-app/Dockerfile
+      - name: Build todo-app
+        run: docker build --tag "$FRONTEND_IMAGE_NAME" ./chapter4/project/todo-app
 
-      - name: Publish
+      - name: Publish todo-app
         run: docker push $FRONTEND_IMAGE_NAME
 
       - name: Set up Kustomize
         uses: imranismail/setup-kustomize@v2.1.0
 
       - name: Deploy
+        working-directory: ./chapter4/project
         run: |-
           kustomize edit set image TODO_BACKEND=$BACKEND_IMAGE_NAME
           kustomize edit set image TODO_APP=$FRONTEND_IMAGE_NAME
