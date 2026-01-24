@@ -11,6 +11,10 @@ const app = express()
 
 app.use(express.json())
 
+app.get("/", (request, response) => {
+  response.json({ status: "ok" })
+})
+
 app.get("/todos", async (request, response) => {
   const todos = await getTodos()
   response.json(todos)
