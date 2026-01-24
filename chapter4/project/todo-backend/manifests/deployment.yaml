@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: project
-          image: vesajo/todo-backend@sha256:6d6fc700366ff8a3a1559998adbf74d796637b009455f52b1e82fe473bd9fb27
+          image: TODO_BACKEND
           env:
             - name: PORT
               value: "3000"

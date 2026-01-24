@@ -19,7 +19,7 @@ spec:
             claimName: project-claim
       containers:
         - name: todo-app
-          image: vesajo/todo-app@sha256:4785a8981e32263675c47603240065df635f0bd848a2252a734c625b7ad657c9
+          image: TODO_APP
           env:
             - name: PORT
               value: "3000"
