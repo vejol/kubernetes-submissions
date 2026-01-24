@@ -69,5 +69,6 @@ jobs:
           kustomize edit set image TODO_BACKEND=$BACKEND_IMAGE_NAME
           kustomize edit set image TODO_APP=$FRONTEND_IMAGE_NAME
           kustomize build . | kubectl apply -f -
+          kubectl config set-context --current --namespace=project
           kubectl rollout status deployment $DEPLOYMENT_NAME
           kubectl get services -o wide
