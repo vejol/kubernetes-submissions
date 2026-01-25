@@ -19,7 +19,7 @@ spec:
           image: postgres:18
           envFrom:
             - secretRef:
-                name: todo-postgres-secret
+                name: todo-postgres-password
           ports:
             - name: web
               containerPort: 5432

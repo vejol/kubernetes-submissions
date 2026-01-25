@@ -10,3 +10,7 @@ resources:
   - todo-backend/manifests/hourly-todo.yaml
   - todo-backend/manifests/service.yaml
   - todo-backend/manifests/statefulset.yaml
+secretGenerator:
+  - name: todo-postgres-password
+    literals:
+      - POSTGRES_PASSWORD=${TODO_POSTGRES_PASSWORD}
