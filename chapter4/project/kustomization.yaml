@@ -13,5 +13,5 @@ resources:
   - todo-backend/manifests/statefulset.yaml
 secretGenerator:
   - name: todo-postgres-password
-    literals:
-      - POSTGRES_PASSWORD=${TODO_POSTGRES_PASSWORD}
+    envs:
+      - .todo-postgres.env
