@@ -60,13 +60,13 @@ jobs:
       - name: Publish todo-app
         run: docker push $FRONTEND_IMAGE_NAME
 
-      - name: Set TODO_POSTGRES_PASSWORD to environment variable from secrets
-        run: echo "TODO_POSTGRES_PASSWORD=${{ secrets.TODO_POSTGRES_PASSWORD }}" >> $GITHUB_ENV
       - name: Set up Kustomize
         uses: imranismail/setup-kustomize@v2.1.0
 
       - name: Deploy
         working-directory: ./chapter4/project
+        env:
+          POSTGRES_PASSWORD: ${{ secrets.TODO_POSTGRES_PASSWORD }}
         run: |-
           kustomize edit set image TODO_BACKEND=$BACKEND_IMAGE_NAME
           kustomize edit set image TODO_APP=$FRONTEND_IMAGE_NAME
