@@ -9,10 +9,17 @@ spec:
     spec:
       template:
         spec:
-          restartPolicy: OnFailure
+          restartPolicy: Never
+          volumes:
+            - name: google-sa-key
+              secret:
+                secretName: google-sa-key
+                items:
+                  - key: GOOGLE_SERVICE_ACCOUNT_KEY
+                    path: key.json
           containers:
             - name: postgres-backup
-              image: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+              image: google/cloud-sdk:553.0.0-slim
               env:
                 - name: PGHOST
                   valueFrom:
@@ -40,16 +47,17 @@ spec:
                       name: todo-postgres-password
                       key: POSTGRES_PASSWORD
                 - name: GOOGLE_APPLICATION_CREDENTIALS
-                  valueFrom:
-                    secretKeyRef:
-                      name: google-sa-key
-                      key: GOOGLE_SERVICE_ACCOUNT_KEY
+                  value: /var/secrets/google/key.json
+              volumeMounts:
+                - name: google-sa-key
+                  mountPath: /var/secrets/google
               command:
                 - /bin/sh
                 - -c
                 - |
-                  set -e
+                  set -eu
+                  TIMESTAMP=$(date +"%Y-%m-%d-%H-%M-%S")
                   apt-get update && apt-get install -y postgresql-client
-                  TIMESTAMP=$(date +"%Y-%m-%d_%H-%M")
                   pg_dump -v > /tmp/backup.sql
-                  gsutil cp /tmp/backup.sql gs://todo-backup2026/backup_$TIMESTAMP.sql
+                  gcloud auth activate-service-account --key-file "$GOOGLE_APPLICATION_CREDENTIALS"
+                  gsutil cp /tmp/backup.sql gs://vejolkko-todo-backup/backup_$TIMESTAMP.sql
