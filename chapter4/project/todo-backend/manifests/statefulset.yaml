@@ -17,6 +17,9 @@ spec:
       containers:
         - name: todo-postgres
           image: postgres:15
+          env:
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
           envFrom:
             - secretRef:
                 name: todo-postgres-password
