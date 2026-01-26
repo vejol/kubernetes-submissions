@@ -19,14 +19,8 @@ spec:
           env:
             - name: PORT
               value: "3000"
-            - name: POSTGRES_PORT
-              value: "5432"
-            - name: POSTGRES_HOST
-              value: todo-postgres-svc
-            - name: POSTGRES_USER
-              value: postgres
-            - name: POSTGRES_DATABASE
-              value: postgres
           envFrom:
+            - configMapRef:
+                name: postgres-config
             - secretRef:
                 name: todo-postgres-password

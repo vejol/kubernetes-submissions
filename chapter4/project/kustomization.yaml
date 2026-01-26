@@ -11,6 +11,8 @@ resources:
   - todo-backend/manifests/hourly-todo.yaml
   - todo-backend/manifests/service.yaml
   - todo-backend/manifests/statefulset.yaml
+  - todo-backend/manifests/cronjob-postgres-backup.yaml
+  - todo-backend/manifests/postgres-config.yaml
 secretGenerator:
   - name: todo-postgres-password
     envs:
