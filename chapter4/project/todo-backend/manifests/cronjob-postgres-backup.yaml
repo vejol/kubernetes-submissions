@@ -37,7 +37,7 @@ spec:
                 - name: PGPASSWORD
                   valueFrom:
                     secretKeyRef:
-                      name: todo-postgres-password-7f25mtf652
+                      name: todo-postgres-password
                       key: POSTGRES_PASSWORD
                 - name: GOOGLE_APPLICATION_CREDENTIALS
                   valueFrom:
