@@ -4,6 +4,10 @@
 
 Deploy everything by pushing a new commit. The Github Actions takes care of the rest. Different branches will be deployed to the separate namespaces.
 
+If you want to use automatic database backup, you need to add a Secret for the Google Service Account. The file `./todo-backend/manifests/google-sa-secret.enc.yaml` contains the required value encrypted using the `sops` and `age` tools. If you have the private key in your possession and it is stored in the default location `~/.config/sops/age/`, you can apply the secret to the cluster with the following command:
+
+`sops -d todo-backend/manifests/google-sa-secret.enc.yaml | kubectl apply -f -`
+
 ## Exercise 3.09: DBaaS vs DIY Comparison
 
 The choice between Google Cloud SQL and a self-managed containerized database solution involves many considerations. Both approaches have their pros and cons.
