@@ -42,3 +42,4 @@ Submissions for DevOps with Kubernetes course in January 2026
 - [3.5](https://github.com/vejol/kubernetes-submissions/tree/3.5/chapter4/project)
 - [3.6](https://github.com/vejol/kubernetes-submissions/tree/3.6/chapter4/project)
 - [3.7](https://github.com/vejol/kubernetes-submissions/tree/3.7/chapter4/project)
+- [3.8](https://github.com/vejol/kubernetes-submissions/tree/3.8/chapter4/project)
