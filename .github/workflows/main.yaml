@@ -61,7 +61,7 @@ jobs:
         run: docker push $FRONTEND_IMAGE_NAME
 
       - name: Define NAMESPACE
-        run: echo "NAMESPACE=${{ github.ref == 'refs/heads/main' && 'default' || github.ref_name }}" >> $GITHUB_ENV
+        run: echo "NAMESPACE=${{ github.ref == 'refs/heads/main' && 'project' || github.ref_name }}" >> $GITHUB_ENV
 
       - name: Set up Kustomize
         uses: imranismail/setup-kustomize@v2.1.0
