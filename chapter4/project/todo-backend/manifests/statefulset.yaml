@@ -29,6 +29,14 @@ spec:
           volumeMounts:
             - name: todo-postgres-storage
               mountPath: /var/lib/postgresql/data
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "100Mi"
+            requests:
+              cpu: "10m"
+              memory: "50Mi"
+
   volumeClaimTemplates:
     - metadata:
         name: todo-postgres-storage

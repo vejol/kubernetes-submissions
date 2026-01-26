@@ -24,3 +24,10 @@ spec:
                 name: postgres-config
             - secretRef:
                 name: todo-postgres-password
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "100Mi"
+            requests:
+              cpu: "10m"
+              memory: "40Mi"

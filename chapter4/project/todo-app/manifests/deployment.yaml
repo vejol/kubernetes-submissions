@@ -32,3 +32,10 @@ spec:
           volumeMounts:
             - name: image-vol
               mountPath: /app/public/images
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "100Mi"
+            requests:
+              cpu: "10m"
+              memory: "40Mi"
