@@ -14,4 +14,4 @@ resources:
 secretGenerator:
   - name: todo-postgres-password
     envs:
-      - .todo-postgres.env
+      - ./todo-backend/.env

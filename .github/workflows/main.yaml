@@ -60,6 +60,9 @@ jobs:
       - name: Publish todo-app
         run: docker push $FRONTEND_IMAGE_NAME
 
+      - name: Define NAMESPACE
+        run: echo "NAMESPACE=${{ github.ref == 'refs/heads/main' && 'default' || github.ref_name }}" >> $GITHUB_ENV
+
       - name: Set up Kustomize
         uses: imranismail/setup-kustomize@v2.1.0
 
@@ -68,7 +71,10 @@ jobs:
         env:
           POSTGRES_PASSWORD: ${{ secrets.TODO_POSTGRES_PASSWORD }}
         run: |-
-          printf 'POSTGRES_PASSWORD=%s\n' "$POSTGRES_PASSWORD" > .todo-postgres.env
+          printf 'POSTGRES_PASSWORD=%s\n' "$POSTGRES_PASSWORD" > ./todo-backend/.env
+          kubectl create namespace ${NAMESPACE} || true
+          kubectl config set-context --current --namespace=${NAMESPACE}
+          kustomize edit set namespace ${NAMESPACE}
           kustomize edit set image TODO_BACKEND=$BACKEND_IMAGE_NAME
           kustomize edit set image TODO_APP=$FRONTEND_IMAGE_NAME
           kustomize build . | kubectl apply -f -
