@@ -37,13 +37,13 @@ spec:
                 - name: PGPASSWORD
                   valueFrom:
                     secretKeyRef:
-                      name: postgres-secret
+                      name: todo-postgres-password-7f25mtf652
                       key: POSTGRES_PASSWORD
                 - name: GOOGLE_APPLICATION_CREDENTIALS
                   valueFrom:
                     secretKeyRef:
-                      name: postgres-secret
-                      key: POSTGRES_PASSWORD
+                      name: google-sa-key
+                      key: GOOGLE_SERVICE_ACCOUNT_KEY
               command:
                 - /bin/sh
                 - -c

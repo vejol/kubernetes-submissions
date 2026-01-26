@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: todo-postgres
-          image: postgres:18
+          image: postgres:15
           envFrom:
             - secretRef:
                 name: todo-postgres-password
@@ -25,7 +25,7 @@ spec:
               containerPort: 5432
           volumeMounts:
             - name: todo-postgres-storage
-              mountPath: /var/lib/postgresql
+              mountPath: /var/lib/postgresql/data
   volumeClaimTemplates:
     - metadata:
         name: todo-postgres-storage
