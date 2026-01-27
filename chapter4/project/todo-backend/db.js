@@ -16,6 +16,7 @@ const initializeDb = async () => {
         content TEXT NOT NULL
       )
     `)
+    console.log("Postgres database is ready to operate")
   } catch (err) {
     throw err
   }
@@ -43,9 +44,5 @@ const addTodo = async content => {
     throw err
   }
 }
-
-pool.on("connect", () => {
-  console.log("Connected to PostgreSQL")
-})
 
 module.exports = { addTodo, initializeDb, getTodos }
