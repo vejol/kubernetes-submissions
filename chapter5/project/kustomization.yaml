@@ -4,7 +4,6 @@ namespace: project
 resources:
   - todo-app/manifests/namespace.yaml
   - todo-app/manifests/deployment.yaml
-  - todo-app/manifests/ingress.yaml
   - todo-app/manifests/pvc.yaml
   - todo-app/manifests/service.yaml
   - todo-app/manifests/gateway.yaml
