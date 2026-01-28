@@ -50,7 +50,7 @@ jobs:
         run: echo "BACKEND_IMAGE_NAME=$REGISTRY/$PROJECT_ID/$REPOSITORY/$BACKEND_IMAGE:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
 
       - name: Build todo-backend
-        run: docker build --tag "$BACKEND_IMAGE_NAME" ./chapter4/project/todo-backend
+        run: docker build --tag "$BACKEND_IMAGE_NAME" ./chapter5/project/todo-backend
 
       - name: Publish todo-backend
         run: docker push $BACKEND_IMAGE_NAME
@@ -59,7 +59,7 @@ jobs:
         run: echo "FRONTEND_IMAGE_NAME=$REGISTRY/$PROJECT_ID/$REPOSITORY/$FRONTEND_IMAGE:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
 
       - name: Build todo-app
-        run: docker build --tag "$FRONTEND_IMAGE_NAME" ./chapter4/project/todo-app
+        run: docker build --tag "$FRONTEND_IMAGE_NAME" ./chapter5/project/todo-app
 
       - name: Publish todo-app
         run: docker push $FRONTEND_IMAGE_NAME
@@ -71,7 +71,7 @@ jobs:
         uses: imranismail/setup-kustomize@v2.1.0
 
       - name: Deploy
-        working-directory: ./chapter4/project
+        working-directory: ./chapter5/project
         env:
           POSTGRES_PASSWORD: ${{ secrets.TODO_POSTGRES_PASSWORD }}
         run: |-

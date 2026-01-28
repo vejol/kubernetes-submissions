@@ -19,3 +19,8 @@ secretGenerator:
   - name: todo-postgres-password
     envs:
       - ./todo-backend/.env
+images:
+  - name: TODO_APP
+    newName: vesajo/todo-app@sha256:5d7d7a8e9df63339b7f8ac1b6c61e722b55c1bf8d8a291cafeadbefaeb4c4a7b
+  - name: TODO_BACKEND
+    newName: vesajo/todo-backend@sha256:8cfe18b9a01a71c44b1d79485eedfdf2ed591dfa224996ec456724bdfc12013c
