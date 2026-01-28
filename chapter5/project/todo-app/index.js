@@ -29,6 +29,18 @@ app.get("/", (request, response) => {
   response.sendFile(path.join(__dirname, "/public/index.html"))
 })
 
+app.get("/healthz", async (request, response) => {
+  try {
+    await axios.get(`/todos/healthz`, { timeout: 2000 })
+    response.status(200).send("ok")
+  } catch {
+    response.status(503).json({
+      status: "not ready",
+      reason: "backend not healthy",
+    })
+  }
+})
+
 app.listen(PORT, () => {
   console.log(`Server started in port ${PORT}`)
 })

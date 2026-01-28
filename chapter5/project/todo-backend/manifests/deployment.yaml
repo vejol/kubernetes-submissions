@@ -16,6 +16,14 @@ spec:
       containers:
         - name: project
           image: TODO_BACKEND
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            httpGet:
+              path: /todos/healthz
+              port: 3000
           env:
             - name: PORT
               value: "3000"

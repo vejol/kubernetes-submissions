@@ -15,6 +15,10 @@ app.get("/", (request, response) => {
   response.json({ status: "ok" })
 })
 
+app.get("/todos/healthz", (request, response) => {
+  response.status(200).send("ok")
+})
+
 app.get("/todos", async (request, response) => {
   const todos = await getTodos()
   response.json(todos)
