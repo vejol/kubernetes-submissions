@@ -24,7 +24,7 @@ spec:
                 path: information.txt
       containers:
         - name: hash-generator
-          image: vesajo/hash-generator@sha256:c72fae48ff8943f8f2cb1b173b42b37f6ae3e8672cfbcb268d943dd3c711ed4b
+          image: vesajo/hash-generator@sha256:c864d479817f8705f6a8369bc7b2a6b1b69c0b5f0678477980db16fb5ad2b156
           env:
             - name: HASH_FILE_PATH
               value: "/app/files/hash.txt"
@@ -32,7 +32,13 @@ spec:
             - name: shared-hash
               mountPath: /app/files
         - name: hash-outputter
-          image: vesajo/hash-outputter@sha256:74f9f7304534e63499f22b51581bccf62d6362e419bedbec9671e86de5179585
+          image: vesajo/hash-outputter@sha256:61cc685ed9c7c8feb535e1d357655015958e20805a48ae6229539f8f7ea0d777
+          readinessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            httpGet:
+              path: /healthz
+              port: 3000
           env:
             - name: PORT
               value: "3000"

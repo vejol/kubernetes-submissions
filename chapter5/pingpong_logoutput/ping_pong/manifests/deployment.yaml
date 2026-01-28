@@ -15,12 +15,22 @@ spec:
     spec:
       containers:
         - name: ping-pong
-          image: vesajo/ping-pong@sha256:d59f13e1016a31bf5f8e6949012764040c757d8bf262a5ca2e634bf4ef045845
+          image: vesajo/ping-pong@sha256:95ce23d067dbbd2528c5765df7762a475890c070ff718806cc2cd4656e192e55
+          ports:
+            - containerPort: 3000
           env:
             - name: POSTGRES_PORT
               value: "5432"
             - name: POSTGRES_HOST
               value: pingpong-postgres-svc
+            - name: PORT
+              value: "3000"
           envFrom:
             - secretRef:
                 name: pingpong-postgres-secret
+          readinessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            httpGet:
+              path: /healthz
+              port: 3000

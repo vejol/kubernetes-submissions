@@ -7,7 +7,7 @@ const PING_PONG_URL = process.env.PING_PONG_URL
 const HASH_FILE_PATH = process.env.HASH_FILE_PATH
 const INFO_FILE_PATH = process.env.INFO_FILE_PATH
 const MESSAGE = process.env.MESSAGE
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT
 
 const readHash = () => {
   try {
@@ -48,6 +48,18 @@ ${hash}
 Ping / Pongs: ${count}
   `
   response.type("text/plain").send(logOutputMessage)
+})
+
+app.get("/healthz", async (request, response) => {
+  try {
+    await axios.get(`${PING_PONG_URL}/healthz`, { timeout: 2000 })
+    response.status(200).send("ok")
+  } catch {
+    response.status(503).json({
+      status: "not ready",
+      reason: "dependency unavailable",
+    })
+  }
 })
 
 app.listen(PORT, () => {

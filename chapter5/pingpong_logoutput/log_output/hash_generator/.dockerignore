@@ -1,2 +1,5 @@
+manifests
 node_modules
 .env
+.env.*
+.gitignore
