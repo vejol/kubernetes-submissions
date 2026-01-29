@@ -18,6 +18,13 @@ spec:
           image: vesajo/ping-pong@sha256:e906f4176eee6a459f48ef460dc4bd7ca6b35213315afc41b70bf768f008a99a
           ports:
             - containerPort: 3000
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "100Mi"
+            requests:
+              cpu: "10m"
+              memory: "40Mi"
           env:
             - name: POSTGRES_PORT
               value: "5432"

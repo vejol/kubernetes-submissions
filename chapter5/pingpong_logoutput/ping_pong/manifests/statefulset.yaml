@@ -17,6 +17,13 @@ spec:
       containers:
         - name: pingpong-postgres
           image: postgres:18
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "100Mi"
+            requests:
+              cpu: "10m"
+              memory: "40Mi"
           envFrom:
             - secretRef:
                 name: pingpong-postgres-secret
