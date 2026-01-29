@@ -28,7 +28,7 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 5
             httpGet:
-              path: /healthz
+              path: /readyz
               port: 3000
           env:
             - name: PORT
@@ -37,6 +37,8 @@ spec:
               value: "https://picsum.photos/1200"
             - name: IMAGE_FILE_PATH
               value: /app/public/images/image.jpg
+            - name: BACKEND_URL
+              value: http://todo-backend-svc:80
           volumeMounts:
             - name: image-vol
               mountPath: /app/public/images

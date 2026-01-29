@@ -45,4 +45,4 @@ const addTodo = async content => {
   }
 }
 
-module.exports = { addTodo, initializeDb, getTodos }
+module.exports = { addTodo, initializeDb, getTodos, pool }

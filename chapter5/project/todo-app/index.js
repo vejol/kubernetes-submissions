@@ -1,11 +1,12 @@
 require("dotenv").config()
+const axios = require("axios")
 const express = require("express")
 const { createProxyMiddleware } = require("http-proxy-middleware")
 const path = require("path")
 
 const startImageLoader = require("./imageLoader")
 
-const API_PROXY_TARGET = process.env.API_PROXY_TARGET
+const BACKEND_URL = process.env.BACKEND_URL
 const PORT = process.env.PORT
 const isDev = process.env.NODE_ENV === "development"
 
@@ -16,7 +17,7 @@ const app = express()
 if (isDev) {
   const proxyMiddleware = createProxyMiddleware({
     pathFilter: "/todos",
-    target: API_PROXY_TARGET,
+    target: BACKEND_URL,
     changeOrigin: true,
   })
 
@@ -29,11 +30,12 @@ app.get("/", (request, response) => {
   response.sendFile(path.join(__dirname, "/public/index.html"))
 })
 
-app.get("/healthz", async (request, response) => {
+app.get("/readyz", async (request, response) => {
   try {
-    await axios.get(`/todos/healthz`, { timeout: 2000 })
+    await axios.get(`${BACKEND_URL}/readyz`, { timeout: 2000 })
     response.status(200).send("ok")
-  } catch {
+  } catch (error) {
+    console.log("Backend availability check failed", error)
     response.status(503).json({
       status: "not ready",
       reason: "backend not healthy",

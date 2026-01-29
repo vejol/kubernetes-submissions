@@ -1,7 +1,7 @@
 require("dotenv").config()
 const express = require("express")
 
-const { addTodo, getTodos, initializeDb } = require("./db")
+const { addTodo, getTodos, initializeDb, pool } = require("./db")
 
 const PORT = process.env.PORT
 
@@ -11,12 +11,14 @@ const app = express()
 
 app.use(express.json())
 
-app.get("/", (request, response) => {
-  response.json({ status: "ok" })
-})
-
-app.get("/todos/healthz", (request, response) => {
-  response.status(200).send("ok")
+app.get("/readyz", async (request, response) => {
+  try {
+    await pool.query("SELECT 1")
+    response.status(200).send("ok")
+  } catch (error) {
+    console.error("DB not reachable", error)
+    response.status(503).send("db not ready")
+  }
 })
 
 app.get("/todos", async (request, response) => {

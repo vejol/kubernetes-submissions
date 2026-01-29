@@ -22,7 +22,7 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 5
             httpGet:
-              path: /todos/healthz
+              path: /readyz
               port: 3000
           env:
             - name: PORT
