@@ -1,7 +1,12 @@
 require("dotenv").config()
 const express = require("express")
 
-const { incrementCounterValue, getCounterValue, initializeDb } = require("./db")
+const {
+  incrementCounterValue,
+  getCounterValue,
+  initializeDb,
+  pool,
+} = require("./db")
 
 const PORT = process.env.PORT
 
@@ -19,8 +24,14 @@ app.get("/pings", async (request, response) => {
   response.json({ pings: counterValue })
 })
 
-app.get("/healthz", (request, response) => {
-  response.status(200).send("ok")
+app.get("/readyz", async (request, response) => {
+  try {
+    await pool.query("SELECT 1")
+    response.status(200).send("ok")
+  } catch (error) {
+    console.error("DB not reachable", error)
+    response.status(503).send("db not ready")
+  }
 })
 
 app.listen(PORT, () => {

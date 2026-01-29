@@ -50,9 +50,9 @@ Ping / Pongs: ${count}
   response.type("text/plain").send(logOutputMessage)
 })
 
-app.get("/healthz", async (request, response) => {
+app.get("/readyz", async (request, response) => {
   try {
-    await axios.get(`${PING_PONG_URL}/healthz`, { timeout: 2000 })
+    await axios.get(`${PING_PONG_URL}/readyz`, { timeout: 2000 })
     response.status(200).send("ok")
   } catch {
     response.status(503).json({

@@ -49,8 +49,4 @@ const incrementCounterValue = async () => {
   return result.rows[0].value
 }
 
-pool.on("connect", () => {
-  console.log("Connected to PostgreSQL")
-})
-
-module.exports = { incrementCounterValue, initializeDb, getCounterValue }
+module.exports = { incrementCounterValue, initializeDb, getCounterValue, pool }
