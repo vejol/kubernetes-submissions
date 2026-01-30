@@ -1,13 +1,21 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: ping-pong-dep
   namespace: exercises
 spec:
-  replicas: 1
+  replicas: 4
   selector:
     matchLabels:
       app: ping-pong
+  strategy:
+    canary:
+      steps:
+        - setWeight: 50
+        - analysis:
+            templates:
+              - templateName: cpu-usage-rate
+        - setWeight: 100
   template:
     metadata:
       labels:
@@ -15,7 +23,7 @@ spec:
     spec:
       containers:
         - name: ping-pong
-          image: vesajo/ping-pong@sha256:e906f4176eee6a459f48ef460dc4bd7ca6b35213315afc41b70bf768f008a99a
+          image: vesajo/ping-pong@sha256:84365856b6d89b76136b3bebcffcb25619e8dba794ca6ce9b0b2bae733069db7
           ports:
             - containerPort: 3000
           resources:
@@ -36,8 +44,14 @@ spec:
             - secretRef:
                 name: pingpong-postgres-secret
           readinessProbe:
-            initialDelaySeconds: 5
+            initialDelaySeconds: 10
             periodSeconds: 5
             httpGet:
               path: /readyz
+              port: 3000
+          livenessProbe:
+            initialDelaySeconds: 20
+            periodSeconds: 5
+            httpGet:
+              path: /healthz
               port: 3000

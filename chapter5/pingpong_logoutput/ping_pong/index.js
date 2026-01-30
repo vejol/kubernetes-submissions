@@ -24,6 +24,10 @@ app.get("/pings", async (request, response) => {
   response.json({ pings: counterValue })
 })
 
+app.get("/healthz", (request, response) => {
+  response.status(200).send("ok")
+})
+
 app.get("/readyz", async (request, response) => {
   try {
     await pool.query("SELECT 1")
