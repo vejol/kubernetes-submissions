@@ -15,7 +15,7 @@ spec:
               image: curlimages/curl:8.18.0
               env:
                 - name: BACKEND_URL
-                  value: "http://todo-backend-svc:2345/todos"
+                  value: "http://todo-backend-svc:80/todos"
                 - name: WIKIPEDIA_RADMOM_URL
                   value: "https://en.wikipedia.org/wiki/Special:Random"
               command:
