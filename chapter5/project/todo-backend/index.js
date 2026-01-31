@@ -67,7 +67,7 @@ app.put("/todos/:id", async (request, response) => {
 
   nc.publish(
     "todo_updated",
-    sc.encode(`A Todo was updated: \n\n${JSON.stringify(addedTodo)}`),
+    sc.encode(`A Todo was updated: \n\n${JSON.stringify(updatedTodo)}`),
   )
   await nc.flush()
 
