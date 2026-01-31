@@ -2,10 +2,10 @@
   "name": "project",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "dev": "NODE_ENV=development node --watch index.js",
-    "start": "NODE_ENV=production node index.js",
+    "dev": "rm -rf dist && npm --prefix frontend run build && cp -r ./frontend/dist . && NODE_ENV=development node --watch server.js",
+    "start": "NODE_ENV=production node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

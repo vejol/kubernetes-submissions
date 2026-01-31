@@ -39,6 +39,8 @@ spec:
               value: /app/public/images/image.jpg
             - name: BACKEND_URL
               value: http://todo-backend-svc:80
+            - name: IMAGE_REFRESH_INTERVAL_MS
+              value: "600000" # 600s = 10m
           volumeMounts:
             - name: image-vol
               mountPath: /app/public/images

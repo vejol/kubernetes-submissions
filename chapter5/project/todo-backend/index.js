@@ -1,7 +1,7 @@
 require("dotenv").config()
 const express = require("express")
 
-const { addTodo, getTodos, initializeDb, pool } = require("./db")
+const { addTodo, getTodos, initializeDb, setTodoDone, pool } = require("./db")
 
 const PORT = process.env.PORT
 
@@ -47,6 +47,12 @@ app.post("/todos", async (request, response) => {
 
   const addedTodo = await addTodo(content)
   response.status(201).json(addedTodo)
+})
+
+app.put("/todos/:id", async (request, response) => {
+  const id = request.params.id
+  const updatedTodo = await setTodoDone(id)
+  response.json(updatedTodo)
 })
 
 app.listen(PORT, () => {

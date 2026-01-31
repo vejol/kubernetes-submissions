@@ -4,6 +4,7 @@ const path = require("path")
 
 const IMAGE_URL = process.env.IMAGE_URL
 const IMAGE_FILE_PATH = process.env.IMAGE_FILE_PATH
+const IMAGE_REFRESH_INTERVAL_MS = process.env.IMAGE_REFRESH_INTERVAL_MS
 
 const getNewImage = async () => {
   const response = await axios.get(IMAGE_URL, { responseType: "stream" })
@@ -27,7 +28,7 @@ const startImageLoader = () => {
     getNewImage()
   }
 
-  setInterval(getNewImage, 600000) // 600000ms=10m
+  setInterval(getNewImage, IMAGE_REFRESH_INTERVAL_MS)
 }
 
 module.exports = startImageLoader

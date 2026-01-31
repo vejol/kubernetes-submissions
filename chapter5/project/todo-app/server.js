@@ -2,7 +2,6 @@ require("dotenv").config()
 const axios = require("axios")
 const express = require("express")
 const { createProxyMiddleware } = require("http-proxy-middleware")
-const path = require("path")
 
 const startImageLoader = require("./imageLoader")
 
@@ -20,15 +19,10 @@ if (isDev) {
     target: BACKEND_URL,
     changeOrigin: true,
   })
-
   app.use(proxyMiddleware)
 }
 
-app.use("/public", express.static(path.join(__dirname, "public")))
-
-app.get("/", (request, response) => {
-  response.sendFile(path.join(__dirname, "/public/index.html"))
-})
+app.use(express.static("dist"))
 
 app.get("/readyz", async (request, response) => {
   try {
