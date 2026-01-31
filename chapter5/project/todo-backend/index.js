@@ -1,9 +1,14 @@
-require("dotenv").config()
-const express = require("express")
+import "dotenv/config"
+import express from "express"
 
-const { addTodo, getTodos, initializeDb, setTodoDone, pool } = require("./db")
+import { addTodo, getTodos, initializeDb, setTodoDone, pool } from "./db.js"
+import { connect, StringCodec } from "nats"
 
 const PORT = process.env.PORT
+const NATS_URL = process.env.NATS_URL
+
+const nc = await connect({ servers: NATS_URL })
+const sc = StringCodec()
 
 initializeDb()
 
@@ -23,6 +28,12 @@ app.get("/readyz", async (request, response) => {
     console.error("DB not reachable", error)
     response.status(503).send("db not ready")
   }
+})
+
+app.get("/todos/test", async (request, response) => {
+  nc.publish("test", sc.encode("Hello World"))
+  await nc.flush()
+  response.status(200).send("test was successful")
 })
 
 app.get("/todos", async (request, response) => {

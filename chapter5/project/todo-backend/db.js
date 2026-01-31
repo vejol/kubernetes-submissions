@@ -1,4 +1,4 @@
-const { Pool } = require("pg")
+import { Pool } from "pg"
 
 const pool = new Pool({
   user: process.env.POSTGRES_USER,
@@ -69,4 +69,4 @@ const setTodoDone = async id => {
   }
 }
 
-module.exports = { addTodo, initializeDb, getTodos, setTodoDone, pool }
+export { addTodo, initializeDb, getTodos, setTodoDone, pool }
