@@ -52,10 +52,7 @@ app.post("/todos", async (request, response) => {
 
   const addedTodo = await addTodo(content)
 
-  nc.publish(
-    "todo_created",
-    sc.encode(`A Todo was created: \n\n${JSON.stringify(addedTodo)}`),
-  )
+  nc.publish("todo_created", sc.encode(JSON.stringify(addedTodo)))
   await nc.flush()
 
   response.status(201).json(addedTodo)
@@ -65,10 +62,7 @@ app.put("/todos/:id", async (request, response) => {
   const id = request.params.id
   const updatedTodo = await setTodoDone(id)
 
-  nc.publish(
-    "todo_updated",
-    sc.encode(`A Todo was updated: \n\n${JSON.stringify(updatedTodo)}`),
-  )
+  nc.publish("todo_updated", sc.encode(JSON.stringify(updatedTodo)))
   await nc.flush()
 
   response.json(updatedTodo)
