@@ -30,12 +30,6 @@ app.get("/readyz", async (request, response) => {
   }
 })
 
-app.get("/todos/test", async (request, response) => {
-  nc.publish("test", sc.encode("Hello World"))
-  await nc.flush()
-  response.status(200).send("test was successful")
-})
-
 app.get("/todos", async (request, response) => {
   const todos = await getTodos()
   response.json(todos)
@@ -57,12 +51,26 @@ app.post("/todos", async (request, response) => {
   console.log(`Received todo: ${content}`)
 
   const addedTodo = await addTodo(content)
+
+  nc.publish(
+    "todo_created",
+    sc.encode(`A Todo was created: \n\n${JSON.stringify(addedTodo)}`),
+  )
+  await nc.flush()
+
   response.status(201).json(addedTodo)
 })
 
 app.put("/todos/:id", async (request, response) => {
   const id = request.params.id
   const updatedTodo = await setTodoDone(id)
+
+  nc.publish(
+    "todo_updated",
+    sc.encode(`A Todo was updated: \n\n${JSON.stringify(addedTodo)}`),
+  )
+  await nc.flush()
+
   response.json(updatedTodo)
 })
 
