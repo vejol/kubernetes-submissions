@@ -14,6 +14,7 @@ const subjects = ["todo_created", "todo_updated"]
 
 for (const subject of subjects) {
   nc.subscribe(subject, {
+    queue: "broadcaster",
     callback: (err, msg) => {
       const payloadText = sc.decode(msg.data)
 
