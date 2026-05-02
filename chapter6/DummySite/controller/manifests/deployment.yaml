@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dummysite-controller
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dummysite-controller
+  template:
+    metadata:
+      labels:
+        app: dummysite-controller
+    spec:
+      serviceAccountName: dummysite-controller
+      containers:
+        - name: controller
+          image: vesajo/dummysite-controller:latest
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "150Mi"
+            requests:
+              cpu: "10m"
+              memory: "50Mi"
