@@ -3,6 +3,7 @@ const axios = require("axios")
 const express = require("express")
 const { readFileSync } = require("fs")
 
+const GREETINGS_URL = process.env.GREETINGS_URL
 const PING_PONG_URL = process.env.PING_PONG_URL
 const HASH_FILE_PATH = process.env.HASH_FILE_PATH
 const INFO_FILE_PATH = process.env.INFO_FILE_PATH
@@ -26,6 +27,15 @@ const getPingCount = async () => {
   }
 }
 
+const getGreetings = async () => {
+  try {
+    const response = await axios.get(`${GREETINGS_URL}`)
+    return response.data
+  } catch (err) {
+    console.error("Error while fetching count:", err)
+  }
+}
+
 const readInfoFile = () => {
   try {
     return readFileSync(INFO_FILE_PATH, "utf8")
@@ -40,12 +50,14 @@ app.get("/", async (request, response) => {
   const hash = readHash() || "no hash available"
   const count = (await getPingCount()) ?? "no ping count found"
   const infoFileContent = readInfoFile() || "no info file content available"
+  const greetings = (await getGreetings()) ?? "no greetings found"
 
   const logOutputMessage = `
 file content: ${infoFileContent}
 env variable: MESSAGE=${MESSAGE}
 ${hash}
 Ping / Pongs: ${count}
+Greetings: ${greetings}
   `
   response.type("text/plain").send(logOutputMessage)
 })

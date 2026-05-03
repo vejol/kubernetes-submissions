@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: greeter-dep-v1
+  namespace: exercises
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: greeter
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: greeter
+        version: v1
+    spec:
+      containers:
+        - name: seedimage
+          image: vesajo/greeter:v1
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "150Mi"
+            requests:
+              cpu: "10m"
+              memory: "50Mi"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: greeter-svc-v1
+  namespace: exercises
+spec:
+  type: ClusterIP
+  selector:
+    app: greeter
+    version: v1
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: greeter-dep-v2
+  namespace: exercises
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: greeter
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: greeter
+        version: v2
+    spec:
+      containers:
+        - name: seedimage
+          image: vesajo/greeter:v2
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "150Mi"
+            requests:
+              cpu: "10m"
+              memory: "50Mi"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: greeter-svc-v2
+  namespace: exercises
+spec:
+  type: ClusterIP
+  selector:
+    app: greeter
+    version: v2
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
