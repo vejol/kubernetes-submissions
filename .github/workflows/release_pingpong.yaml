@@ -56,4 +56,4 @@ jobs:
         uses: EndBug/add-and-commit@v10
         with:
           add: "chapter6/pingpong_logoutput/kustomization.yaml"
-          message: New version released ${{ github.sha }}
+          message: New version of pingpong app released ${{ github.sha }}

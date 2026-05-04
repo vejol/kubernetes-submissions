@@ -8,7 +8,7 @@ spec:
     - name: cpu-usage-rate
       failureCondition: result > 0.2
       interval: 30s
-      count: 10
+      count: 4
       provider:
         prometheus:
           address: http://kube-prometheus-stack-1777-prometheus.prometheus.svc.cluster.local:9090

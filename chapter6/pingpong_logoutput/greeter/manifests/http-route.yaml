@@ -5,13 +5,12 @@ metadata:
   namespace: exercises
 spec:
   parentRefs:
-    - name: greeter-svc
+    - group: ""
+      kind: Service
+      name: greeter-svc
+      port: 80
   rules:
-    - matches:
-        - path:
-            type: Exact
-            value: /
-      backendRefs:
+    - backendRefs:
         - name: greeter-svc-v1
           port: 80
           weight: 75
