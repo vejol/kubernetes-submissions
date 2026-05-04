@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: random-wiki-page
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: random-wiki-page
+  template:
+    metadata:
+      labels:
+        app: random-wiki-page
+    spec:
+      volumes:
+        - name: wiki-html
+          emptyDir: {}
+      initContainers:
+        - name: fetch-kubernetes-wiki-page
+          image: curlimages/curl
+          command:
+            - sh
+            - -c
+            - |
+              curl -s https://en.wikipedia.org/wiki/Kubernetes > /wiki-html/index.html
+          volumeMounts:
+            - name: wiki-html
+              mountPath: /wiki-html
+        - name: fetch-random-wiki-page
+          image: curlimages/curl
+          # Setting restartPolicy: Always makes this a sidecar container
+          restartPolicy: Always
+          command:
+            - sh
+            - -c
+            - |
+              while true; do
+                sleep $((30 + RANDOM % 60))
+                curl -s https://en.wikipedia.org/wiki/Special:Random > /www/index.html
+              done
+          volumeMounts:
+            - name: wiki-html
+              mountPath: /wiki-html
+      containers:
+        - name: nginx
+          image: nginx
+          volumeMounts:
+            - name: wiki-html
+              mountPath: /usr/share/nginx/html
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "100Mi"
+            requests:
+              cpu: "10m"
+              memory: "10Mi"
