@@ -59,8 +59,9 @@ Submissions for DevOps with Kubernetes course 2026
 - [4.7](https://github.com/vejol/kubernetes-submissions/tree/4.7/chapter5/pingpong_logoutput)
 - [4.8](https://github.com/vejol/kubernetes-submissions/tree/4.8/chapter5/project)
 - [4.9](https://github.com/vejol/kubernetes-submissions/tree/4.9/chapter5/project)
-- [4.10 source code repo](https://github.com/vejol/kubernetes-submissions/tree/4.10/chapter5/project) / [4.10 config repo](https://github.com/vejol/project-config/tree/4.10)
+- 4.10: [source code repo](https://github.com/vejol/kubernetes-submissions/tree/4.10/chapter5/project) / [config repo](https://github.com/vejol/project-config/tree/4.10)
 
 ### Chapter 6
 
 - [5.1](https://github.com/vejol/kubernetes-submissions/tree/5.1/chapter6/DummySite)
+- [5.2](https://github.com/vejol/kubernetes-submissions/tree/5.2/chapter6/pingpong_logoutput)
