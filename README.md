@@ -67,3 +67,4 @@ Submissions for DevOps with Kubernetes course 2026
 - 5.2 (nothing to submit)
 - [5.3](https://github.com/vejol/kubernetes-submissions/tree/5.3/chapter6/pingpong_logoutput)
 - [5.4](https://github.com/vejol/kubernetes-submissions/tree/5.4/chapter6/RandomWikiPage)
+- [5.5](./chapter6/execise_5.5.md)
