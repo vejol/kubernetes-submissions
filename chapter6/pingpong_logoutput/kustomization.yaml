@@ -2,28 +2,28 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: exercises
 resources:
-  - ping_pong/manifests/analysistemplate.yaml
-  - ping_pong/manifests/rollout.yaml
-  - ping_pong/manifests/service.yaml
-  - ping_pong/manifests/statefulset.yaml
-  - ping_pong/manifests/pingpong-postgres-config.yaml
-  - log_output/manifests/configMap.yaml
-  - log_output/manifests/deployment.yaml
-  - log_output/manifests/gateway.yaml
-  - log_output/manifests/route.yaml
-  - log_output/manifests/service.yaml
-  - greeter/manifests/greeter-dep.yaml
-  - greeter/manifests/http-route.yaml
-  - greeter/manifests/service.yaml
-  - greeter/manifests/namespace.yaml
+- ping_pong/manifests/analysistemplate.yaml
+- ping_pong/manifests/rollout.yaml
+- ping_pong/manifests/service.yaml
+- ping_pong/manifests/statefulset.yaml
+- ping_pong/manifests/pingpong-postgres-config.yaml
+- log_output/manifests/configMap.yaml
+- log_output/manifests/deployment.yaml
+- log_output/manifests/gateway.yaml
+- log_output/manifests/route.yaml
+- log_output/manifests/service.yaml
+- greeter/manifests/greeter-dep.yaml
+- greeter/manifests/http-route.yaml
+- greeter/manifests/service.yaml
+- greeter/manifests/namespace.yaml
 
 images:
-  - name: HASH_GENERATOR
-    newName: vesajo/hash-generator
-    newTag: bbd09ab6555fd58d4d99053279a74d637c7a218d
-  - name: HASH_OUTPUTTER
-    newName: vesajo/hash-outputter
-    newTag: bbd09ab6555fd58d4d99053279a74d637c7a218d
-  - name: PING_PONG
-    newName: vesajo/ping-pong
-    newTag: bbd09ab6555fd58d4d99053279a74d637c7a218d
+- name: HASH_GENERATOR
+  newName: vesajo/hash-generator
+  newTag: f53fc09c93ae36bd3693bc95f8214f38645ac81a
+- name: HASH_OUTPUTTER
+  newName: vesajo/hash-outputter
+  newTag: f53fc09c93ae36bd3693bc95f8214f38645ac81a
+- name: PING_PONG
+  newName: vesajo/ping-pong
+  newTag: f53fc09c93ae36bd3693bc95f8214f38645ac81a
