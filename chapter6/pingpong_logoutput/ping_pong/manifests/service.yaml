@@ -1,13 +1,17 @@
-apiVersion: v1
+apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
   name: ping-pong-svc
   namespace: exercises
 spec:
-  type: ClusterIP
-  selector:
-    app: ping-pong
-  ports:
-    - port: 80
-      protocol: TCP
-      targetPort: 3000
+  template:
+    spec:
+      containers:
+        - image: PING_PONG
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: pingpong-postgres-config
+            - secretRef:
+                name: pingpong-postgres-password
